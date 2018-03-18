@@ -1,3 +1,5 @@
+'use strict';
+
 const  i2c = require('i2c-bus'),
     Oled = require('oled-i2c-bus'),
     font = require('oled-font-5x7');
@@ -16,7 +18,7 @@ const opts = {
 
 const oled = new Oled(i2cBus, opts);
 
-export function writeText(text, font_size, x, y, wrap) {
+exports.writeText = (text, font_size, x, y, wrap) => {
     if (typeof font_size === "undefined") {
         font_size = 1;
     }
@@ -29,15 +31,15 @@ export function writeText(text, font_size, x, y, wrap) {
     if (typeof wrap === "undefined") {
         wrap = true;
     }
-    on();
-    clear();
+    this.on();
+    this.clear();
     oled.setCursor(x, y);
     oled.writeString(font, font_size, text, 1, wrap);
 }
-export function clear() {
+exports.clear = () =>{
     oled.clearDisplay();
 }
-export function on() {
+exports.on = () => {
     oled.turnOnDisplay();
 }
 
